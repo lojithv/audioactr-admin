@@ -12,7 +12,7 @@ const RedirectHandler = (props: Props) => {
       localforage.getItem("token").then((v) => {
         console.log(v);
         if (v) {
-          navigate("/dashboard");
+          navigate("/admin");
         } else {
           navigate("/signin");
         }

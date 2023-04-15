@@ -15,19 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import localForage from "localforage";
 import { useNavigate } from 'react-router-dom';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export default function SignIn() {
@@ -43,7 +30,7 @@ export default function SignIn() {
 
     localForage.setItem('token', true, function(result) {
       console.log(result);
-      navigate("/dashboard");
+      navigate("/admin");
   });
   };
 
@@ -99,11 +86,11 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
-              </Grid>
+              </Grid> */}
               <Grid item>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -112,7 +99,6 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

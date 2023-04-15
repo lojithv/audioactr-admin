@@ -4,6 +4,10 @@ import SignUp from "../pages/SignUp";
 import RedirectHandler from "./RedirectHandler";
 import Dashboard from "../pages/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Subscriptions from "../pages/Subscriptions";
+import Customers from "../pages/Customers";
+import SubscriptionPlans from "../pages/SubscriptionPlans";
 
 export const router = createBrowserRouter([
   {
@@ -19,11 +23,29 @@ export const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/dashboard",
+    path: "/admin",
     element: (
-      <ProtectedRoute user={false}>
-        <Dashboard />
+      <ProtectedRoute user={true}>
+        <DashboardLayout />
       </ProtectedRoute>
     ),
+    children:[
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "customers",
+        element: <Customers />,
+      },
+      {
+        path: "subscriptions",
+        element: <Subscriptions />,
+      },
+      {
+        path: "subscription-plans",
+        element: <SubscriptionPlans />,
+      },
+    ]
   },
 ]);
