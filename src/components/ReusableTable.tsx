@@ -14,18 +14,32 @@ export default function ReusableTable({ columns, rowData, title }: any) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            {columns.map((col: any,i:number) => (
-              <TableCell key={i}>{col.name}</TableCell>
+            {columns.map((col: any, i: number) => (
+              <TableCell
+                key={i}
+                align={i === columns.length - 1 ? "right" : "left"}
+              >
+                {col.name}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rowData.map((row: any) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+          {rowData.map((row: any[], i: number) => (
+            <TableRow key={i}>
+              {row.map((c: any, j: number) => {
+                return (
+                  <TableCell align={j === row.length - 1 ? "right" : "left"}>
+                    {c.type
+                      ? c.type === "PRICE"
+                        ? `$${c.amount}`
+                        : c.type === "DURATION"
+                        ? c.months
+                        : c
+                      : c}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           ))}
         </TableBody>
