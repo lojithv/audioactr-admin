@@ -9,6 +9,8 @@ import Subscriptions from "../pages/Subscriptions";
 import Customers from "../pages/Customers";
 import SubscriptionPlans from "../pages/SubscriptionPlans";
 
+
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,13 +21,9 @@ export const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
     path: "/admin",
     element: (
-      <ProtectedRoute user={true}>
+      <ProtectedRoute>
         <DashboardLayout />
       </ProtectedRoute>
     ),

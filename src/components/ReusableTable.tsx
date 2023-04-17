@@ -44,7 +44,7 @@ export default function ReusableTable({ columns, rowData, title }: any) {
             >
               {row.map((c: any, j: number) => {
                 return (
-                  <TableCell align={j === row.length - 1 ? "right" : "left"}>
+                  <TableCell key={j} align={j === row.length - 1 ? "right" : "left"}>
                     {c.type
                       ? c.type === "PRICE"
                         ? `$${c.amount}`
