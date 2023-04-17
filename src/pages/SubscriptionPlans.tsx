@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ReusableTable from "../components/ReusableTable";
-import { Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { setDialogVisibility } from "../store/DialogStateStore";
 
 type Props = {};
@@ -30,6 +30,100 @@ const columns = [
   ["Amount"],
 ];
 
+const AddPlanForm = () => {
+  const [planData, setPlanData] = React.useState({
+    planName: "",
+    planDetails: "",
+    price: 0,
+    expirationPeriod: 0,
+  });
+
+  const handleSubmit = () => {
+    console.log(planData);
+  };
+
+  const handleChange = (
+    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    key: string
+  ) => {
+    setPlanData((p) => {
+      return { ...p, [key]: evt.target.value };
+    });
+  };
+
+  return (
+    <Box component="form" noValidate sx={{ mt: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            name="planName"
+            required
+            fullWidth
+            id="planName"
+            label="Plan Name"
+            value={planData.planName}
+            onChange={(e) => handleChange(e, "planName")}
+            autoFocus
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            fullWidth
+            id="expirationPeriod"
+            label="Expiration Period"
+            name="expirationPeriod"
+            value={planData.expirationPeriod}
+            onChange={(e) => handleChange(e, "expirationPeriod")}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            id="price"
+            label="Price"
+            name="price"
+            value={planData.price}
+            onChange={(e) => handleChange(e, "price")}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            name="planDetails"
+            label="Plan Details"
+            id="planDetails"
+            value={planData.planDetails}
+            onChange={(e) => handleChange(e, "planDetails")}
+            multiline
+            maxRows={4}
+          />
+        </Grid>
+      </Grid>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleSubmit}
+      >
+        ADD
+      </Button>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={() =>
+          setDialogVisibility({ open: false, body: "", title: "" })
+        }
+      >
+        Cancel
+      </Button>
+    </Box>
+  );
+};
+
 const TriggerElement = () => {
   return (
     <Button
@@ -37,7 +131,7 @@ const TriggerElement = () => {
       onClick={() =>
         setDialogVisibility({
           open: true,
-          body: <div>Test</div>,
+          body: <AddPlanForm />,
           title: "ADD PLAN",
         })
       }

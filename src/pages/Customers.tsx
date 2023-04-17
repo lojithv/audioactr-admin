@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ReusableTable from "../components/ReusableTable";
-import { Button } from "@mui/material";
+import { Box, Button, FormControlLabel, TextField } from "@mui/material";
 import { setDialogVisibility } from "../store/DialogStateStore";
 import { UserService } from "../services/user";
 
@@ -24,6 +24,103 @@ const columns = [
   ["User Type"],
 ];
 
+const AddUserForm = () => {
+  const [userData, setUserData] = React.useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = () => {
+    console.log(userData);
+  };
+
+  const handleChange = (
+    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    key: string
+  ) => {
+    setUserData((p) => {
+      return { ...p, [key]: evt.target.value };
+    });
+  };
+
+  return (
+    <Box component="form" noValidate sx={{ mt: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            autoComplete="given-name"
+            name="firstName"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            value={userData.firstname}
+            onChange={(e) => handleChange(e, "firstname")}
+            autoFocus
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+            value={userData.lastname}
+            onChange={(e) => handleChange(e, "lastname")}
+            autoComplete="family-name"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            onChange={(e) => handleChange(e, "email")}
+            value={userData.email}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            value={userData.password}
+            onChange={(e) => handleChange(e, "password")}
+            autoComplete="new-password"
+          />
+        </Grid>
+      </Grid>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleSubmit}
+      >
+        ADD
+      </Button>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={() =>
+          setDialogVisibility({ open: false, body: "", title: "" })
+        }
+      >
+        Cancel
+      </Button>
+    </Box>
+  );
+};
+
 const TriggerElement = () => {
   return (
     <Button
@@ -31,7 +128,7 @@ const TriggerElement = () => {
       onClick={() =>
         setDialogVisibility({
           open: true,
-          body: <div>Test</div>,
+          body: <AddUserForm />,
           title: "ADD CUSTOMER",
         })
       }
