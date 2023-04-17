@@ -13,7 +13,6 @@ const rows = [
     "Free",
     "Free",
     { type: "DURATION", months: "NONE" },
-    ,
     { type: "PRICE", amount: 0 },
   ],
   [
@@ -25,10 +24,10 @@ const rows = [
 ];
 
 const columns = [
-  { name: "Plan Name" },
-  { name: "Plan Type" },
-  { name: "Expiration Period (Months)" },
-  { name: "Amount" },
+  ["Plan Name"],
+  ["Plan Type"],
+  ["Expiration Period (Months)"],
+  ["Amount"],
 ];
 
 const TriggerElement = () => {

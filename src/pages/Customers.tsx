@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import ReusableTable from "../components/ReusableTable";
 import { Button } from "@mui/material";
 import { setDialogVisibility } from "../store/DialogStateStore";
+import { UserService } from "../services/user";
 
 type Props = {};
 
@@ -17,10 +18,10 @@ const rows = [
 ];
 
 const columns = [
-  { name: "Registered Date" },
-  { name: "Name" },
-  { name: "Email Address" },
-  { name: "User Type" },
+  ["Registered Date"],
+  ["Name"],
+  ["Email Address"],
+  ["User Type"],
 ];
 
 const TriggerElement = () => {
@@ -42,6 +43,23 @@ const TriggerElement = () => {
 };
 
 const Customers = (props: Props) => {
+  const [customers, setCustomers] = React.useState([] as any[]);
+
+  React.useEffect(() => {
+    UserService.getUsers()
+      .then((res) => {
+        console.log(res);
+        const users: any[] = [];
+        res.data.map((u: any) => {
+          users.push([u.createdDate, u.firstname, u.email, u.userRole.role]);
+        });
+        setCustomers(users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
@@ -50,7 +68,7 @@ const Customers = (props: Props) => {
           <TriggerElement />
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <ReusableTable
-              rowData={rows}
+              rowData={customers}
               columns={columns}
               title={"Customers"}
             />

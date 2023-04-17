@@ -41,12 +41,7 @@ const rows = [
   ],
 ];
 
-const columns = [
-  { name: "Date" },
-  { name: "Name" },
-  { name: "Payment Intent ID" },
-  { name: "Amount" },
-];
+const columns = [["Date"], ["Name"], ["Payment Intent ID"], ["Amount"]];
 
 const TriggerElement = () => {
   return (
