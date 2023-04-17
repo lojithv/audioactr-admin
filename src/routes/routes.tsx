@@ -25,14 +25,14 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute user={false}>
+      <ProtectedRoute user={true}>
         <DashboardLayout />
       </ProtectedRoute>
     ),
-    children:[
+    children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: <Customers />,
       },
       {
         path: "customers",
@@ -46,6 +46,6 @@ export const router = createBrowserRouter([
         path: "subscription-plans",
         element: <SubscriptionPlans />,
       },
-    ]
+    ],
   },
 ]);
