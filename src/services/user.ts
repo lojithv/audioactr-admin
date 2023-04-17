@@ -3,9 +3,7 @@ import { serverConnInstance } from "../config/axiosInstance";
 export namespace UserService {
   export const getUsers = async () => {
     return await serverConnInstance.get("/get-users").then((res) => {
-      if (res.data) {
-        console.log(res.data);
-      }
+      return res
     });
   };
 

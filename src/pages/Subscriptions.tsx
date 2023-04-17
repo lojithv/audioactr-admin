@@ -2,10 +2,9 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Chart from "../components/Chart";
-import Deposits from "../components/Deposits";
-import createData from "../helpers/createData";
 import ReusableTable from "../components/ReusableTable";
+import { Button } from "@mui/material";
+import { setDialogVisibility } from "../store/DialogStateStore";
 
 type Props = {};
 
@@ -42,12 +41,25 @@ const rows = [
   ],
 ];
 
-const columns = [
-  { name: "Date" },
-  { name: "Name" },
-  { name: "Payment Intent ID" },
-  { name: "Amount" },
-];
+const columns = [["Date"], ["Name"], ["Payment Intent ID"], ["Amount"]];
+
+const TriggerElement = () => {
+  return (
+    <Button
+      variant="outlined"
+      onClick={() =>
+        setDialogVisibility({
+          open: true,
+          body: <div>Test</div>,
+          title: "ADD SUBSCRIPTION",
+        })
+      }
+      sx={{ marginBottom: "10px" }}
+    >
+      ADD SUBSCRIPTION
+    </Button>
+  );
+};
 
 const Subscriptions = (props: Props) => {
   return (
@@ -55,6 +67,7 @@ const Subscriptions = (props: Props) => {
       <Grid container spacing={3}>
         {/* Recent Orders */}
         <Grid item xs={12}>
+          <TriggerElement />
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <ReusableTable
               rowData={rows}

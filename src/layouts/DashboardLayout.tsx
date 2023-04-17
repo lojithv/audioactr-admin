@@ -13,11 +13,11 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import {
-  listItems,
-} from "../components/listItems";
+import { listItems } from "../components/listItems";
 import { Outlet, useNavigate } from "react-router-dom";
-import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Button, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import ReusableDialogLayout from "./DialogLayout";
+import localforage from "localforage";
 
 const drawerWidth: number = 240;
 
@@ -79,6 +79,11 @@ function DashboardContent() {
 
   const navigate = useNavigate();
 
+  const handleLogout = () =>{
+    localforage.removeItem("user")
+    navigate('/signin')
+  }
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -110,11 +115,9 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -132,7 +135,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {listItems.map((item,i) => {
+            {listItems.map((item, i) => {
               return (
                 <ListItemButton key={i} onClick={() => navigate(item.path)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
@@ -155,6 +158,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
+          <ReusableDialogLayout />
           <Outlet />
         </Box>
       </Box>
