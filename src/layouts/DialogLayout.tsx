@@ -12,48 +12,39 @@ import {
 } from "../store/DialogStateStore";
 
 interface Props {
-  TriggerElement: React.ReactNode;
+  TriggerElement: JSX.Element;
   triggerElementMargin: string;
+  DialogBody: JSX.Element;
+  title: string;
 }
 
-export default function ReusableDialogLayout({
-  TriggerElement,
-  triggerElementMargin,
-}: Props) {
-  const open = useDialogVisibility();
+export default function ReusableDialogLayout() {
+  const dialogVisibility = useDialogVisibility();
 
   const handleClickOpen = () => {
-    setDialogVisibility(true);
+    setDialogVisibility({ open: true, body: null, title: "" });
   };
 
   const handleClose = () => {
-    setDialogVisibility(false);
+    setDialogVisibility({ open: false, body: null, title: "" });
   };
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen} sx={{marginBottom:"10px"}}>
-        {buttonText}
-      </Button> */}
       <div
         onClick={handleClickOpen}
         style={{
           width: "fit-content",
           height: "fit-content",
-          marginBottom: triggerElementMargin,
         }}
-      >
-        {TriggerElement}
-      </div>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+      ></div>
+      <Dialog open={dialogVisibility.open} onClose={handleClose} fullWidth>
+        <DialogTitle>
+          {dialogVisibility.title ? dialogVisibility.title : ""}
+        </DialogTitle>
         <DialogContent>
-          <div>Test</div>
+          {dialogVisibility.body ? dialogVisibility.body : null}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

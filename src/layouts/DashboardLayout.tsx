@@ -13,11 +13,10 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import {
-  listItems,
-} from "../components/listItems";
+import { listItems } from "../components/listItems";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import ReusableDialogLayout from "./DialogLayout";
 
 const drawerWidth: number = 240;
 
@@ -132,7 +131,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {listItems.map((item,i) => {
+            {listItems.map((item, i) => {
               return (
                 <ListItemButton key={i} onClick={() => navigate(item.path)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
@@ -155,6 +154,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
+          <ReusableDialogLayout />
           <Outlet />
         </Box>
       </Box>

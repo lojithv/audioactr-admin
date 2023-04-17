@@ -7,15 +7,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 import { Button } from "@mui/material";
+import { setDialogVisibility } from "../store/DialogStateStore";
 
 export default function ReusableTable({ columns, rowData, title }: any) {
   return (
     <React.Fragment>
-      <div style={{display:'flex', justifyContent:'space-between'}}>
-      <Title>{title}</Title>
-      <Button variant="outlined">Export</Button>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Title>{title}</Title>
+        <Button variant="outlined">Export</Button>
       </div>
-      
+
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -31,7 +32,16 @@ export default function ReusableTable({ columns, rowData, title }: any) {
         </TableHead>
         <TableBody>
           {rowData.map((row: any[], i: number) => (
-            <TableRow key={i}>
+            <TableRow
+              key={i}
+              onClick={() =>
+                setDialogVisibility({
+                  open: true,
+                  title: "test",
+                  body: <div>Test123</div>,
+                })
+              }
+            >
               {row.map((c: any, j: number) => {
                 return (
                   <TableCell align={j === row.length - 1 ? "right" : "left"}>
